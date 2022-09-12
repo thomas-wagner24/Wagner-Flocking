@@ -8,6 +8,8 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
 
     float desiredDistance = desiredMinimalDistance;
 
+    //do the opposite of cohesion rule (find average of positions, then move away from it) do the opposite subtraction to find the vector
+
     // todo: implement a force that if neighbor(s) enter the radius, moves the boid away from it/them
     if (!neighborhood.empty()) {
         Vector2 position = boid->transform.position;
