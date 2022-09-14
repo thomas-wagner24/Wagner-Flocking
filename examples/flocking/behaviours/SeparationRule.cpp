@@ -5,9 +5,8 @@
 Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boid* boid) {
     //Try to avoid boids too close
     
+    Vector2 separatingForce;
     /*
-    Vector2 separatingForce = Vector2::zero();
-
     float desiredDistance = desiredMinimalDistance;
 
     //do the opposite of cohesion rule (find average of positions, then move away from it) do the opposite subtraction to find the vector
