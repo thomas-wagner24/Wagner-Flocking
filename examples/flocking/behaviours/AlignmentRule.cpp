@@ -8,6 +8,25 @@ Vector2 AlignmentRule::computeForce(const std::vector<Boid*>& neighborhood, Boid
     // hint: iterate over the neighborhood
 
     //find the average of the velocity of all boids in neighborhood, return it
+    //boid->getVelocity()
 
-    return Vector2::normalized(averageVelocity);
+    float totalX = 0;
+    float totalY = 0;
+    float counter = 0;
+    for (auto boid : neighborhood)
+        // auto: automatic  typing
+        //foreach only works well for pointers bc foreach would create a copy if it wasnt a pointer
+    {
+        totalX += boid->getVelocity().x;
+        totalY += boid->getVelocity().y;
+
+        counter++;
+    }
+
+    //find the average of the velocities of all boids in neighborhood, return that velocity
+    float newX = totalX / counter;
+    float newY = totalY / counter;
+    Vector2 newVelocity = Vector2(newX, newY); //location the boid should move towards
+    return newVelocity.normalized();
+
 }

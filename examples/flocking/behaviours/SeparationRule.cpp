@@ -4,6 +4,8 @@
 
 Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boid* boid) {
     //Try to avoid boids too close
+    
+    /*
     Vector2 separatingForce = Vector2::zero();
 
     float desiredDistance = desiredMinimalDistance;
@@ -19,6 +21,27 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
     }
 
     separatingForce = Vector2::normalized(separatingForce);
+
+    return separatingForce;
+    */
+    float totalX = 0;
+    float totalY = 0;
+    float counter = 0;
+    for (auto boid : neighborhood)
+    {
+        //boid.position (in GameObject.h)
+        totalX += boid->getPosition().x;
+        totalY += boid->getPosition().y;
+
+        counter++;
+    }
+
+    //find the average of the positions of all boids in neighborhood, return a vector away from that point
+    float newX = totalX / counter;
+    float newY = totalY / counter;
+    Vector2 newTarget = Vector2(newX, newY);
+    Vector2 moveForce =  boid->getPosition() - newTarget;
+    separatingForce = moveForce.normalized();
 
     return separatingForce;
 }
