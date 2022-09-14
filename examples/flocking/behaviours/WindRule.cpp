@@ -14,7 +14,9 @@ Vector2 WindRule::computeForce(const std::vector<Boid*>& neighborhood, Boid* boi
     float newX = (float)cos(radWindAngle);
     float newY = (float)sin(radWindAngle);
 
-    return Vector2(newX, newY).normalized();
+    Vector2 windVector = Vector2(newX, newY);
+
+    return windVector.normalized();
 
     //return Vector2::zero();
 }
