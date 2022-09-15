@@ -24,9 +24,17 @@ Vector2 AlignmentRule::computeForce(const std::vector<Boid*>& neighborhood, Boid
     }
 
     //find the average of the velocities of all boids in neighborhood, return that velocity
-    float newX = totalX / counter;
-    float newY = totalY / counter;
-    Vector2 newVelocity = Vector2(newX, newY); //location the boid should move towards
-    return newVelocity.normalized();
+    if (counter == 0)
+    {
+        return Vector2(0, 0);
+    }
+    else
+    {
+        float newX = totalX / counter;
+        float newY = totalY / counter;
+        Vector2 newVelocity = Vector2(newX, newY); //location the boid should move towards
+        return newVelocity.normalized();
+    }
+    
 
 }

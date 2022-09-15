@@ -22,11 +22,19 @@ Vector2 CohesionRule::computeForce(const std::vector<Boid*>& neighborhood, Boid*
     }
 
     //find the average of the positions of all boids in neighborhood, return a vector towards that point
-    float newX = totalX / counter;
-    float newY = totalY / counter;
-    Vector2 newTarget = Vector2(newX, newY); //location the boid should move towards
-    Vector2 moveForce = newTarget - boid->getPosition();
-    cohesionForce = moveForce.normalized();
+    if (counter == 0)
+    {
+        return Vector2(0, 0);
+    }
+    else
+    {
+        float newX = totalX / counter;
+        float newY = totalY / counter;
+        Vector2 newTarget = Vector2(newX, newY); //location the boid should move towards
+        Vector2 moveForce = newTarget - boid->getPosition();
+        cohesionForce = moveForce.normalized();
 
-    return cohesionForce;
+        return cohesionForce;
+    }
+    
 }

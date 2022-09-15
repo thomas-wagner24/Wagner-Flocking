@@ -36,13 +36,21 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
     }
 
     //find the average of the positions of all boids in neighborhood, return a vector away from that point
-    float newX = totalX / counter;
-    float newY = totalY / counter;
-    Vector2 newTarget = Vector2(newX, newY);
-    Vector2 moveForce =  boid->getPosition() - newTarget;
-    separatingForce = moveForce.normalized();
 
-    return separatingForce;
+    if (counter == 0)
+    {
+        return Vector2(0, 0);
+    }
+    else
+    {
+        float newX = totalX / counter;
+        float newY = totalY / counter;
+        Vector2 newTarget = Vector2(newX, newY);
+        Vector2 moveForce = boid->getPosition() - newTarget;
+        separatingForce = moveForce.normalized();
+
+        return separatingForce;
+    }
 }
 
 bool SeparationRule::drawImguiRuleExtra() {
