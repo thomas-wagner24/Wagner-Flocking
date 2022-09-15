@@ -9,10 +9,10 @@ Vector2 WindRule::computeForce(const std::vector<Boid*>& neighborhood, Boid* boi
 
     //return Vector2 of the wind angle (use trig rules)
     //Vector2(cos(x),sin(x))
-    double radWindAngle = windAngle*(M_PI / 180);
+    //double radWindAngle = windAngle*(M_PI / 180);
 
-    float newX = (float)cos(radWindAngle);
-    float newY = (float)sin(radWindAngle);
+    float newX = (float)cos(windAngle);
+    float newY = (float)sin(windAngle);
 
     Vector2 windVector = Vector2(newX, newY);
 
