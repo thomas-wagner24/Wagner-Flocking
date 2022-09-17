@@ -6,9 +6,9 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
     //Try to avoid boids too close
     
     Vector2 separatingForce;
-    /*
+    
     float desiredDistance = desiredMinimalDistance;
-
+    /*
     //do the opposite of cohesion rule (find average of positions, then move away from it) do the opposite subtraction to find the vector
 
     // todo: implement a force that if neighbor(s) enter the radius, moves the boid away from it/them
@@ -29,10 +29,19 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
     for (auto boid : neighborhood)
     {
         //boid.position (in GameObject.h)
-        totalX += boid->getPosition().x;
-        totalY += boid->getPosition().y;
+        //if(distance < desiredDistance
 
-        counter++;
+        float boidDistance = return sqrt(pow(boid->getPosition().x - getPosition().x, 2) + pow(boid->getPosition().y - getPosition().y, 2) * 1.0); //getting distance between each boid in neighborhood
+
+
+        if (boidDistance < desiredDistance)
+        {
+            totalX += boid->getPosition().x;
+            totalY += boid->getPosition().y;
+
+            counter++;
+        }
+        
     }
 
     //find the average of the positions of all boids in neighborhood, return a vector away from that point
