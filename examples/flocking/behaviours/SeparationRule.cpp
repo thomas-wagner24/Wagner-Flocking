@@ -26,18 +26,18 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
     float totalX = 0;
     float totalY = 0;
     float counter = 0;
-    for (auto boid : neighborhood)
+    for (auto neighbor : neighborhood)
     {
         //boid.position (in GameObject.h)
         //if(distance < desiredDistance
 
-        float boidDistance = sqrt(pow(boid->getPosition().x - getPosition().x, 2) + pow(boid->getPosition().y - getPosition().y, 2) * 1.0); //getting distance between each boid in neighborhood
+        float boidDistance = sqrt(pow(neighbor->getPosition().x - boid->getPosition().x, 2) + pow(neighbor->getPosition().y - boid->getPosition().y, 2) * 1.0); //getting distance between each boid in neighborhood
 
 
         if (boidDistance < desiredDistance)
         {
-            totalX += boid->getPosition().x;
-            totalY += boid->getPosition().y;
+            totalX += neighbor->getPosition().x;
+            totalY += neighbor->getPosition().y;
 
             counter++;
         }
