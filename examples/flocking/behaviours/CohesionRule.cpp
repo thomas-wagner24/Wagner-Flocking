@@ -15,13 +15,10 @@ Vector2 CohesionRule::computeForce(const std::vector<Boid*>& neighborhood, Boid*
         //(explanation from quincy)
     {
         //boid.position (in GameObject.h)
-        if (neighbor != boid)
-        {
-            totalX += neighbor->getPosition().x;
-            totalY += neighbor->getPosition().y;
-
-            counter++;
-        }
+        totalX += neighbor->getPosition().x;
+        totalY += neighbor->getPosition().y;
+        
+        counter++;
         
     }
 
@@ -34,9 +31,9 @@ Vector2 CohesionRule::computeForce(const std::vector<Boid*>& neighborhood, Boid*
     {
         float newX = totalX / counter;
         float newY = totalY / counter;
-        Vector2 newTarget = Vector2(newX, newY); //location the boid should move towards
-        Vector2 moveForce = newTarget - boid->getPosition();
-        cohesionForce = moveForce.normalized();
+        Vector2 newTarget = Vector2(newX - boid->getPosition().x, newY - boid->getPosition().y); //location the boid should move towards
+        //Vector2 moveForce = newTarget - boid->getPosition();
+        cohesionForce = newTarget.normalized();
         //cohesionForce = moveForce;
 
         return cohesionForce;
