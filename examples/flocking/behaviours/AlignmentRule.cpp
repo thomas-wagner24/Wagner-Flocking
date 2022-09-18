@@ -13,14 +13,19 @@ Vector2 AlignmentRule::computeForce(const std::vector<Boid*>& neighborhood, Boid
     float totalX = 0;
     float totalY = 0;
     float counter = 0;
-    for (auto boid : neighborhood)
+    for (auto neighbor : neighborhood)
         // auto: automatic  typing
         //foreach only works well for pointers bc foreach would create a copy if it wasnt a pointer
     {
-        totalX += boid->getVelocity().x;
-        totalY += boid->getVelocity().y;
+        if (neighbor != boid)
+        {
+            totalX += neighbor->getVelocity().x;
+            totalY += neighbor->getVelocity().y;
 
-        counter++;
+            counter++;
+        }
+
+        
     }
 
     //find the average of the velocities of all boids in neighborhood, return that velocity

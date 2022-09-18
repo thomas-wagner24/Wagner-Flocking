@@ -9,16 +9,20 @@ Vector2 CohesionRule::computeForce(const std::vector<Boid*>& neighborhood, Boid*
     float totalX = 0;
     float totalY = 0;
     float counter = 0;
-    for (auto boid : neighborhood)
+    for (auto neighbor : neighborhood)
         // auto: automatic  typing
         //foreach only works well for pointers bc foreach would create a copy if it wasnt a pointer
         //(explanation from quincy)
     {
         //boid.position (in GameObject.h)
-        totalX += boid->getPosition().x;
-        totalY += boid->getPosition().y;
+        if (neighbor != boid)
+        {
+            totalX += neighbor->getPosition().x;
+            totalY += neighbor->getPosition().y;
 
-        counter++;
+            counter++;
+        }
+        
     }
 
     //find the average of the positions of all boids in neighborhood, return a vector towards that point
@@ -30,7 +34,7 @@ Vector2 CohesionRule::computeForce(const std::vector<Boid*>& neighborhood, Boid*
     {
         float newX = totalX / counter;
         float newY = totalY / counter;
-        Vector2 newTarget = Vector2(newX, newY); //location the boid should move towards
+        Vector2 newTarget = Vector2(newX - boid->getPosition().x, newY - boid->getPosition().y); //location the boid should move towards
         Vector2 moveForce = newTarget - boid->getPosition();
         cohesionForce = moveForce.normalized();
         //cohesionForce = moveForce;

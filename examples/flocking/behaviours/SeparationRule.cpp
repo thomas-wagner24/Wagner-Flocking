@@ -2,6 +2,10 @@
 #include "../gameobjects/Boid.h"
 #include "../gameobjects/World.h"
 
+//used a website for reference with this rule:
+//https://gamedevelopment.tutsplus.com/tutorials/3-simple-rules-of-flocking-behaviors-alignment-cohesion-and-separation--gamedev-3444
+
+
 Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boid* boid) {
     //Try to avoid boids too close
     
@@ -31,16 +35,16 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
         //boid.position (in GameObject.h)
         //if(distance < desiredDistance
 
-        float boidDistance = sqrt(pow(neighbor->getPosition().x - boid->getPosition().x, 2) + pow(neighbor->getPosition().y - boid->getPosition().y, 2) * 1.0); //getting distance between each boid in neighborhood
+        //float boidDistance = sqrt(pow(neighbor->getPosition().x - boid->getPosition().x, 2) + pow(neighbor->getPosition().y - boid->getPosition().y, 2) * 1.0); //getting distance between each boid in neighborhood
 
 
-        if (boidDistance < desiredDistance)
-        {
-            totalX += neighbor->getPosition().x;
-            totalY += neighbor->getPosition().y;
+        //if (boidDistance < desiredDistance)
+        //{
+            totalX += neighbor->getPosition().x - boid->getPosition().x;
+            totalY += neighbor->getPosition().y - boid->getPosition().y;
 
             counter++;
-        }
+        //}
         
     }
 
@@ -54,6 +58,9 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
     {
         float newX = totalX / counter;
         float newY = totalY / counter;
+
+        newX *= -1;
+        newY *= -1;
         Vector2 newTarget = Vector2(newX, newY);
         Vector2 moveForce = boid->getPosition() - newTarget;
         separatingForce = moveForce.normalized();
