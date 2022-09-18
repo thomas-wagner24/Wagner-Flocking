@@ -34,7 +34,7 @@ Vector2 CohesionRule::computeForce(const std::vector<Boid*>& neighborhood, Boid*
     {
         float newX = totalX / counter;
         float newY = totalY / counter;
-        Vector2 newTarget = Vector2(newX - boid->getPosition().x, newY - boid->getPosition().y); //location the boid should move towards
+        Vector2 newTarget = Vector2(newX, newY); //location the boid should move towards
         Vector2 moveForce = newTarget - boid->getPosition();
         cohesionForce = moveForce.normalized();
         //cohesionForce = moveForce;

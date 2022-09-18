@@ -40,10 +40,10 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
 
         //if (boidDistance < desiredDistance)
         //{
-            totalX += neighbor->getPosition().x - boid->getPosition().x;
-            totalY += neighbor->getPosition().y - boid->getPosition().y;
+        totalX += neighbor->getPosition().x;
+        totalY += neighbor->getPosition().y;
 
-            counter++;
+        counter++;
         //}
         
     }

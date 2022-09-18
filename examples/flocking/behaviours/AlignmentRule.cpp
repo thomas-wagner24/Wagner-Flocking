@@ -17,13 +17,11 @@ Vector2 AlignmentRule::computeForce(const std::vector<Boid*>& neighborhood, Boid
         // auto: automatic  typing
         //foreach only works well for pointers bc foreach would create a copy if it wasnt a pointer
     {
-        if (neighbor != boid)
-        {
-            totalX += neighbor->getVelocity().x;
-            totalY += neighbor->getVelocity().y;
+       
+        totalX += neighbor->getVelocity().x;
+        totalY += neighbor->getVelocity().y;
 
-            counter++;
-        }
+        counter++;
 
         
     }
