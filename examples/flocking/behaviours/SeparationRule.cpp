@@ -44,11 +44,7 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
     {
         return separatingForce;
     }
-    else
-    {
-        separatingForce.x /= counter;
-        separatingForce.y /= counter;
-    }
+    
     /*
     else
     {
