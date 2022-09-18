@@ -23,7 +23,7 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
         float calcY = boid->getPosition().y - neighbor->getPosition().y;
         float boidDistance = sqrt(pow(calcX, 2) + pow(calcY, 2)); //get real distance;
 
-        if (boidDistance <= desiredDistance) //boid within minimal distance
+        if (boidDistance > 0 && boidDistance <= desiredDistance) //boid within minimal distance
         {
             //totalX += (1 / pow(calcX, 2)); //getting inverse proportion for the distance
             //totalY += (1 / pow(calcY, 2));
@@ -36,13 +36,20 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
 
             separatingForce.x += force.x;
             separatingForce.y += force.y;
+            counter++;
         }
     }
-    /*
+    
     if (counter == 0)
     {
         return separatingForce;
     }
+    else
+    {
+        separatingForce.x /= counter;
+        separatingForce.y /= counter;
+    }
+    /*
     else
     {
         float newX = totalX / counter;
