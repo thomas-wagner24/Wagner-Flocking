@@ -2,69 +2,46 @@
 #include "../gameobjects/Boid.h"
 #include "../gameobjects/World.h"
 
-//used a website for reference with this rule:
-//https://gamedevelopment.tutsplus.com/tutorials/3-simple-rules-of-flocking-behaviors-alignment-cohesion-and-separation--gamedev-3444
-
 
 Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boid* boid) {
     //Try to avoid boids too close
     
-    Vector2 separatingForce;
+    Vector2 separatingForce = { 0,0 };
     
     float desiredDistance = desiredMinimalDistance;
     /*
     //do the opposite of cohesion rule (find average of positions, then move away from it) do the opposite subtraction to find the vector
 
     // todo: implement a force that if neighbor(s) enter the radius, moves the boid away from it/them
-    if (!neighborhood.empty()) {
-        Vector2 position = boid->transform.position;
-        int countCloseFlockmates = 0;
-
-
-    }
-
-    separatingForce = Vector2::normalized(separatingForce);
-
-    return separatingForce;
     */
     float totalX = 0;
     float totalY = 0;
     float counter = 0;
     for (auto neighbor : neighborhood)
     {
-        //boid.position (in GameObject.h)
-        //if(distance < desiredDistance
-
-        //float boidDistance = sqrt(pow(neighbor->getPosition().x - boid->getPosition().x, 2) + pow(neighbor->getPosition().y - boid->getPosition().y, 2) * 1.0); //getting distance between each boid in neighborhood
-
-
-        //if (boidDistance < desiredDistance)
-        //{
-
-        float calcX = neighbor->getPosition().x - boid->getPosition().x;
-        float calcY = neighbor->getPosition().y - boid->getPosition().y;
-        float boidDistance = sqrt(pow(calcX, 2) + pow(calcY, 2) * 1.0); //get real distance;
+        float calcX = boid->getPosition().x - neighbor->getPosition().x;
+        float calcY = boid->getPosition().y - neighbor->getPosition().y;
+        float boidDistance = sqrt(pow(calcX, 2) + pow(calcY, 2)); //get real distance;
 
         if (boidDistance <= desiredDistance) //boid within minimal distance
         {
-            totalX += (1 / pow(calcX, 2)); //getting inverse proportion for the distance
-            totalY += (1 / pow(calcY, 2));
+            //totalX += (1 / pow(calcX, 2)); //getting inverse proportion for the distance
+            //totalY += (1 / pow(calcY, 2));
 
-            counter++;
+            //counter++;
 
+            Vector2 normalizedDistance = Vector2(calcX, calcY).normalized();
 
+            Vector2 force = Vector2(normalizedDistance.x / boidDistance, normalizedDistance.y / boidDistance);
+
+            separatingForce.x += force.x;
+            separatingForce.y += force.y;
         }
-
-        
-        //}
-        
     }
-
-    //find the average of the positions of all boids in neighborhood, return a vector away from that point
-
+    /*
     if (counter == 0)
     {
-        return Vector2(0, 0);
+        return separatingForce;
     }
     else
     {
@@ -76,10 +53,12 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
         Vector2 newTarget = Vector2(newX, newY);
         //Vector2 moveForce = boid->getPosition() - newTarget;
 
-        separatingForce = newTarget.normalized();
+        separatingForce = newTarget.normalized() - boid->getPosition();
         //separatingForce = moveForce;
         return separatingForce;
     }
+    */
+    return separatingForce;
 }
 
 bool SeparationRule::drawImguiRuleExtra() {
