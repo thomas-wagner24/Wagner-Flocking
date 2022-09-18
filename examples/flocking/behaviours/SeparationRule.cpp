@@ -25,10 +25,14 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
 
         if (boidDistance > 0 && boidDistance <= desiredDistance) //boid within minimal distance
         {
-            Vector2 normalizedDistance = Vector2(calcX, calcY).normalized();
+            //Vector2 normalizedDistance = Vector2(calcX, calcY).normalized();
 
-            Vector2 force = Vector2(normalizedDistance.x / boidDistance, normalizedDistance.y / boidDistance);
+            //Vector2 force = Vector2(normalizedDistance.x / boidDistance, normalizedDistance.y / boidDistance);
 
+            Vector2 displacement = Vector2(calcX, calcY);
+            // The force is inversely proportional to distance
+            Vector2 force = displacement / exp(boidDistance / 100.f);
+            
             separatingForce.x += force.x;
             separatingForce.y += force.y;
             counter++;

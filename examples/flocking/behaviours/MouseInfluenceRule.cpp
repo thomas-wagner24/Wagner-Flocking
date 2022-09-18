@@ -8,8 +8,8 @@ Vector2 MouseInfluenceRule::computeForce(const std::vector<Boid*>& neighborhood,
 
     if (ImGui::IsMousePosValid() && io.MouseDown[0]) {
         Vector2 mousePos(io.MousePos.x, io.MousePos.y); // todo: use this
-        float calcX = boid->getPosition().x - mousePos.x;
-        float calcY = boid->getPosition().y - mousePos.y;
+        float calcX = mousePos.x - boid->getPosition().x;
+        float calcY = mousePos.y - boid->getPosition().y;
         Vector2 displacement = Vector2(calcX, calcY); // todo: change this
         float distance = sqrt(pow(calcX, 2) + pow(calcY, 2));
 
