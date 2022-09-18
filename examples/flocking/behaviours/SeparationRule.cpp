@@ -56,8 +56,8 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
         float newY = totalY / counter;
         Vector2 newTarget = Vector2(newX, newY);
         Vector2 moveForce = boid->getPosition() - newTarget;
-        //separatingForce = moveForce.normalized();
-        separatingForce = moveForce;
+        separatingForce = moveForce.normalized();
+        //separatingForce = moveForce;
         return separatingForce;
     }
 }
