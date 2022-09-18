@@ -25,11 +25,6 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
 
         if (boidDistance > 0 && boidDistance <= desiredDistance) //boid within minimal distance
         {
-            //totalX += (1 / pow(calcX, 2)); //getting inverse proportion for the distance
-            //totalY += (1 / pow(calcY, 2));
-
-            //counter++;
-
             Vector2 normalizedDistance = Vector2(calcX, calcY).normalized();
 
             Vector2 force = Vector2(normalizedDistance.x / boidDistance, normalizedDistance.y / boidDistance);
@@ -61,7 +56,7 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
         return separatingForce;
     }
     */
-    return separatingForce;
+    return separatingForce.normalized();
 }
 
 bool SeparationRule::drawImguiRuleExtra() {
